@@ -1,0 +1,5 @@
+apiVersion: v2
+name: nest-test
+version: 0.0.1
+kubeVersion: ^1.19.0
+type: application
