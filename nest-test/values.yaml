@@ -37,22 +37,26 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: NodePort
-  port: 3000
-  nodePort: 30080
+  type: ClusterIP
+  port: 80
 
 ingress:
   enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/issuer: "letsencrypt-prod"
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: chart-example.local
-      paths: []
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    - host: sootedpanda.com
+      paths:
+        - path: /
+          backend:
+            serviceName: nest-test
+            servicePort: 80
+  tls: false
+#    - secretName: sootedpanda-com-tls
+#      hosts:
+#        - sootedpanda.com
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
